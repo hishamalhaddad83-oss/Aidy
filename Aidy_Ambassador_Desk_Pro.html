@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#1a2f6b">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Aidy — Executive Assistant Desk for the Embassy of the Arab Republic of Egypt, Washington D.C.">
+<title>Aidy · Executive Assistant Desk · Embassy of Egypt · Washington D.C.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1a2f6b;
+  --navy2:#273E86;
+  --blue:#0091DA;
+  --gold:#c9a227;
+  --gold-soft:#f5e9c8;
+  --ink:#1a1f2e;
+  --mut:#5c6b7a;
+  --line:#e2e8f0;
+  --bg:#f4f7fb;
+  --card:#ffffff;
+  --success:#059669;
+  --danger:#dc2626;
+  --radius:16px;
+  --shadow:0 4px 24px -8px rgba(26,47,107,.12);
+  --shadow-lg:0 12px 40px -12px rgba(26,47,107,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,sans-serif;
+  line-height:1.55;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+body.dark{
+  --bg:#0b1220;
+  --card:#142033;
+  --ink:#e8eef7;
+  --mut:#94a3b8;
+  --line:#1e2d45;
+  --shadow:0 4px 24px -8px rgba(0,0,0,.4);
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes shine{from{background-position:-200% 0}to{background-position:200% 0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+@keyframes confettiFall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;filter:blur(70px);opacity:.28}
+.o1{width:480px;height:480px;background:var(--blue);top:-160px;right:-100px}
+.o2{width:380px;height:380px;background:var(--navy);bottom:5%;left:-120px;opacity:.18}
+body.dark .o1{opacity:.15} body.dark .o2{opacity:.12}
+
+.wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:16px 16px 140px}
+
+/* Header */
+header{text-align:center;padding:12px 0 6px;animation:fadeUp .7s both}
+.logo-wrap{width:68px;margin:0 auto 8px}
+.logo-wrap svg{width:100%;filter:drop-shadow(0 8px 20px rgba(26,47,107,.35))}
+header h1{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;
+  font-size:clamp(30px,6vw,40px);
+  margin:0;
+  line-height:1.1;
+  background:linear-gradient(105deg,var(--navy),var(--blue),#1a3a8a,var(--blue),var(--navy));
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 7s linear infinite;
+}
+header .sub{
+  display:block;
+  font-size:11.5px;
+  color:var(--mut);
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-top:5px;
+}
+.hdr-actions{display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+.tb{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  color:var(--ink);
+  border-radius:99px;
+  padding:7px 15px;
+  font:600 12.5px Inter;
+  cursor:pointer;
+  transition:.2s;
+}
+.tb:hover{border-color:var(--blue);transform:translateY(-1px)}
+
+/* Navigation */
+nav{
+  display:flex;
+  gap:3px;
+  overflow-x:auto;
+  margin:14px 0 16px;
+  padding:5px;
+  background:var(--card);
+  border-radius:14px;
+  border:1.5px solid var(--line);
+  position:sticky;
+  top:8px;
+  z-index:30;
+  box-shadow:var(--shadow);
+  scrollbar-width:none;
+}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  flex:none;
+  border:0;
+  background:none;
+  color:var(--mut);
+  font:700 12px Inter;
+  padding:8px 11px;
+  border-radius:10px;
+  cursor:pointer;
+  display:flex;
+  gap:5px;
+  align-items:center;
+  white-space:nowrap;
+  transition:.18s;
+}
+nav button svg{width:14px;height:14px;flex-shrink:0}
+nav button.on{
+  background:linear-gradient(135deg,var(--blue),var(--navy2));
+  color:#fff;
+  box-shadow:0 4px 12px -4px rgba(0,145,218,.5);
+}
+nav button:not(.on):hover{background:rgba(0,145,218,.08);color:var(--navy2)}
+
+/* Cards & Typography */
+.card{
+  border-radius:var(--radius);
+  padding:20px 18px 16px;
+  margin-bottom:12px;
+  background:var(--card);
+  border:1.5px solid var(--line);
+  box-shadow:var(--shadow);
+  animation:fadeUp .4s both;
+}
+h2{margin:0 0 6px;font-size:17px;font-weight:800;color:var(--navy2)}
+body.dark h2{color:#8ec8f0}
+h3{margin:0 0 6px;font-size:14px;font-weight:700;color:var(--navy2)}
+body.dark h3{color:#8ec8f0}
+.m{color:var(--mut);font-size:13px;line-height:1.5}
+.eyebrow{
+  font:800 10px Inter;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:3px;
+}
+
+/* Hero */
+.hero{
+  background:linear-gradient(130deg,var(--navy) 0%,var(--navy2) 45%,#0a4a8a 100%);
+  color:#fff;
+  border:0;
+  overflow:hidden;
+  position:relative;
+  text-align:center;
+  padding:26px 20px;
+}
+.hero:after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%);
+  background-size:200% 100%;
+  animation:shine 5s linear infinite;
+  pointer-events:none;
+}
+.hero h2{color:#fff;font-family:'Playfair Display',serif;font-style:italic;font-size:22px;margin:0}
+.hero p{margin:8px auto 0;opacity:.92;font-size:13.5px;max-width:440px;line-height:1.5}
+.hero .mas{width:64px;margin:0 auto 6px}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}
+@media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stats > div{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:13px;
+  padding:13px 8px;
+  text-align:center;
+  transition:.2s;
+}
+.stats > div:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.stats b{display:block;font-size:24px;font-weight:800;color:var(--navy2)}
+body.dark .stats b{color:#8ec8f0}
+.stats span{font-size:10.5px;color:var(--mut);font-weight:700;letter-spacing:.02em}
+
+/* Dual Clocks */
+.clk-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+@media(max-width:560px){.clk-wrap{grid-template-columns:1fr}}
+.clkx{
+  position:relative;
+  border-radius:18px;
+  padding:16px 12px 14px;
+  overflow:hidden;
+  color:#fff;
+  text-align:center;
+  box-shadow:0 14px 32px -14px rgba(26,47,107,.4);
+}
+.clkx.cairo{background:linear-gradient(155deg,#0a1a4a 0%,#1a3a8a 42%,#0d4a6e 100%)}
+.clkx.dc{background:linear-gradient(155deg,#12306e 0%,#1e5db0 50%,#3aa7e6 100%)}
+.clkx.night{background:linear-gradient(155deg,#0b1020 0%,#1a1f3a 50%,#0f1a30 100%)}
+.clkx .sky{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.clkx .sun{
+  position:absolute;width:48px;height:48px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#fff7a8,#FFD43B 45%,#f59e0b 80%);
+  box-shadow:0 0 24px 6px rgba(255,212,59,.5);
+  top:10px;right:12px;
+  animation:pulse 4s ease-in-out infinite;
+}
+.clkx .moon{
+  position:absolute;width:38px;height:38px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#f8fafc,#cbd5e1);
+  box-shadow:0 0 16px 3px rgba(200,220,255,.3);
+  top:14px;right:14px;
+}
+.clkx .moon:after{
+  content:"";position:absolute;width:28px;height:28px;border-radius:50%;
+  background:#0b1020;top:-3px;right:-7px;opacity:.85;
+}
+.clkx .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.7}
+.clkx .city{position:relative;z-index:1;font:800 10.5px Inter;letter-spacing:.15em;text-transform:uppercase;opacity:.9;margin-bottom:4px}
+.clkx .time{position:relative;z-index:1;font:800 clamp(24px,5.5vw,32px)/1 Inter;font-variant-numeric:tabular-nums;letter-spacing:-.02em;text-shadow:0 2px 10px rgba(0,0,0,.25)}
+.clkx .meta{position:relative;z-index:1;font-size:11.5px;opacity:.8;margin-top:3px}
+.clkx .dial{position:relative;z-index:1;width:78px;height:78px;margin:8px auto 0}
+.clkx .dial svg{width:100%;height:100%}
+
+/* Forms */
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.wide{grid-column:1/-1}
+label{display:flex;flex-direction:column;font-size:11px;font-weight:700;color:var(--mut);gap:3px}
+input,select,textarea{
+  font:inherit;
+  padding:10px 12px;
+  border:1.5px solid var(--line);
+  border-radius:10px;
+  background:var(--card);
+  color:var(--ink);
+  width:100%;
+  transition:.15s;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(0,145,218,.15);
+}
+textarea{min-height:78px;resize:vertical}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 20px;
+  border:0;border-radius:99px;
+  color:#fff;
+  font:600 13.5px Inter;
+  cursor:pointer;
+  background:linear-gradient(100deg,var(--navy2),var(--blue),#1a3a8a,var(--blue),var(--navy2));
+  background-size:300% 100%;
+  animation:shine 5s linear infinite;
+  box-shadow:0 6px 16px -8px rgba(26,47,107,.45);
+  transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px -8px rgba(26,47,107,.55)}
+.btn.s{padding:6px 13px;font-size:12px}
+.btn.b{background:linear-gradient(135deg,#1e3a8a,var(--navy2));animation:none}
+.btn.w{background:linear-gradient(135deg,#25d366,#128c7e);animation:none}
+.btn.ghost{
+  background:var(--card);
+  color:var(--navy2);
+  border:1.5px solid var(--line);
+  animation:none;
+  box-shadow:none;
+}
+body.dark .btn.ghost{color:#8ec8f0}
+.btn.danger{background:linear-gradient(135deg,#dc2626,#b91c1c);animation:none}
+.x{background:none;border:0;color:var(--mut);cursor:pointer;font:600 12px Inter;padding:4px 6px}
+.x:hover{color:var(--danger)}
+
+.row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.pill{
+  display:inline-block;
+  background:var(--navy2);
+  color:#fff;
+  border-radius:99px;
+  padding:2px 9px;
+  font-size:10.5px;
+  font-weight:700;
+  margin-right:4px;
+}
+.pill.r{background:#e11d48}
+.pill.c{background:#7c3aed}
+.pill.o{background:#ea580c}
+.pill.g{background:var(--success)}
+.done b{text-decoration:line-through;opacity:.55}
+.empty{text-align:center;color:var(--mut);padding:28px 12px;font-size:14px}
+
+/* Sticky notes */
+.sticks{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-top:10px}
+.sn{
+  min-height:130px;
+  padding:13px;
+  font-size:13px;
+  font-weight:500;
+  line-height:1.4;
+  color:#1d2b3a;
+  box-shadow:0 8px 18px -10px rgba(15,40,90,.3);
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  white-space:pre-wrap;
+  border-radius:3px 3px 11px 3px;
+}
+.s0{background:#fef9c3;border-top:4px solid #eab308}
+.s1{background:#fce7f3;border-top:4px solid #db2777}
+.s2{background:#d1fae5;border-top:4px solid #059669}
+.s3{background:#dbeafe;border-top:4px solid #2563eb}
+.s4{background:#ede9fe;border-top:4px solid #7c3aed}
+.s5{background:#ffedd5;border-top:4px solid #ea580c}
+
+/* Drop zone */
+.drop{
+  border:2px dashed var(--blue);
+  border-radius:14px;
+  padding:26px 16px;
+  text-align:center;
+  background:rgba(0,145,218,.04);
+  cursor:pointer;
+  transition:.2s;
+}
+.drop:hover,.drop.drag{background:rgba(0,145,218,.1);border-color:var(--navy2)}
+.drop input{display:none}
+
+/* Classification levels */
+.lvl{display:inline-block;padding:2px 9px;border-radius:99px;font-size:10.5px;font-weight:700}
+.lvl.Public{background:#dcfce7;color:#166534}
+.lvl.Internal{background:#e0f2fe;color:#075985}
+.lvl.Confidential{background:#fef3c7;color:#92400e}
+.lvl.Secret{background:#fee2e2;color:#991b1b}
+
+/* Analytics */
+.an-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:9px;margin-bottom:12px}
+.an-card{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:13px;
+  padding:13px;
+  text-align:center;
+}
+.an-card b{display:block;font-size:24px;font-weight:800;color:var(--navy2)}
+body.dark .an-card b{color:#8ec8f0}
+.an-card span{font-size:10.5px;color:var(--mut);font-weight:700}
+.an-bar{height:7px;border-radius:99px;background:#e2e8f0;overflow:hidden;margin-top:7px}
+body.dark .an-bar{background:#1e2d45}
+.an-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--navy2))}
+.insight{
+  background:linear-gradient(135deg,#eef6ff,#f0f7ff);
+  border:1.5px solid #bfdbfe;
+  border-radius:11px;
+  padding:11px 13px;
+  margin-bottom:7px;
+  font-size:13px;
+  line-height:1.5;
+}
+body.dark .insight{background:linear-gradient(135deg,#152035,#1a2740);border-color:#2a3f5c}
+.insight b{color:var(--navy2)}
+body.dark .insight b{color:#8ec8f0}
+
+/* Embassy info */
+.emb{display:grid;gap:10px}
+.emb-row{
+  display:flex;gap:11px;align-items:flex-start;
+  padding:11px 13px;border-radius:12px;
+  background:rgba(0,145,218,.04);
+  border:1.5px solid var(--line);
+}
+.emb-ico{
+  flex:none;width:38px;height:38px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--blue),var(--navy2));color:#fff;
+}
+.emb-ico svg{width:18px;height:18px}
+.emb-txt b{display:block;font-size:13px;font-weight:700;color:var(--navy2)}
+body.dark .emb-txt b{color:#8ec8f0}
+.emb-txt span{font-size:12.5px;color:var(--mut);line-height:1.4}
+
+/* Multi chips */
+.multi-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.multi-list span{
+  background:#e0f2fe;color:#075985;
+  border-radius:99px;padding:3px 9px;
+  font-size:11.5px;
+  display:inline-flex;align-items:center;gap:4px;
+}
+body.dark .multi-list span{background:#1a2f4a;color:#7dd3fc}
+.multi-list span button{border:0;background:none;color:inherit;cursor:pointer;font-weight:800}
+
+/* Templates */
+.tpl{
+  cursor:pointer;
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  background:rgba(0,145,218,.03);
+  transition:.18s;
+}
+.tpl:hover{border-color:var(--blue);background:rgba(0,145,218,.08)}
+.ct-card{border-left:4px solid var(--blue)}
+
+/* Protocol checklist */
+.check-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+}
+.check-item:last-child{border-bottom:0}
+.check-item input{width:18px;height:18px;margin-top:2px;accent-color:var(--blue)}
+.check-item.done span{text-decoration:line-through;opacity:.55}
+
+/* Lock screen */
+.ov{
+  position:fixed;inset:0;z-index:100;
+  background:linear-gradient(160deg,var(--blue),var(--navy2) 55%,#0a3a6e);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;text-align:center;color:#fff;
+}
+.lock{
+  width:min(400px,100%);
+  background:rgba(255,255,255,.97);
+  color:#0b2a45;
+  border-radius:22px;
+  padding:28px 24px;
+  box-shadow:0 28px 56px -16px rgba(0,0,0,.4);
+  animation:fadeUp .5s both;
+}
+body.dark .lock{background:rgba(20,32,51,.97);color:#e8eef7}
+.lock h1{font-size:32px;font-family:'Playfair Display',serif;font-style:italic;margin:8px 0 4px}
+.lock .credit{font-size:11px;color:var(--mut);margin-top:18px;line-height:1.5}
+
+/* Mascot */
+#tally-mascot{
+  position:fixed;bottom:22px;left:14px;z-index:55;
+  width:68px;height:86px;cursor:pointer;
+  filter:drop-shadow(0 10px 20px rgba(26,47,107,.3));
+  animation:float 4.5s ease-in-out infinite;
+}
+#tally-mascot:hover{animation-play-state:paused;transform:scale(1.08) translateY(-5px)!important}
+#tally-mascot svg{width:100%;height:100%}
+#tally-bubble{
+  position:fixed;bottom:118px;left:14px;z-index:56;
+  max-width:220px;padding:11px 13px;
+  border-radius:14px 14px 14px 4px;
+  background:var(--card);
+  border:1.5px solid #c5d3ee;
+  box-shadow:0 12px 28px -8px rgba(26,47,107,.3);
+  font-size:12.5px;line-height:1.45;color:var(--ink);
+  opacity:0;transform:translateY(10px);pointer-events:none;transition:.35s;
+}
+#tally-bubble.on{opacity:1;transform:none;pointer-events:auto}
+
+/* Banner reminder */
+.bnr{
+  position:fixed;inset-inline:12px;
+  bottom:calc(env(safe-area-inset-bottom,0px)+14px);
+  z-index:40;
+  background:var(--navy2);color:#fff;
+  border-radius:13px;padding:11px 13px;
+  display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;
+  box-shadow:0 12px 32px -8px rgba(26,47,107,.5);
+}
+.bnr .x{color:#fff}
+
+/* Confetti */
+.cf{position:fixed;top:-20px;width:8px;height:12px;z-index:60;animation:confettiFall 1.5s ease-in forwards}
+
+/* Footer */
+.foot{
+  text-align:center;
+  color:var(--mut);
+  font-size:11px;
+  margin-top:28px;
+  line-height:1.75;
+  padding-bottom:16px;
+}
+.foot .designer{
+  margin-top:10px;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+  font-size:11.5px;
+  color:var(--navy2);
+  font-weight:600;
+}
+body.dark .foot .designer{color:#8ec8f0}
+.foot .degrees{font-size:10.5px;font-weight:500;color:var(--mut);margin-top:2px}
+
+/* Quick actions strip */
+.quick-strip{
+  display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;
+  scrollbar-width:none;
+}
+.quick-strip::-webkit-scrollbar{display:none}
+.qbtn{
+  flex:none;
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:12px;
+  padding:10px 14px;
+  font:600 12px Inter;
+  color:var(--navy2);
+  cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  transition:.18s;
+}
+body.dark .qbtn{color:#8ec8f0}
+.qbtn:hover{border-color:var(--blue);background:rgba(0,145,218,.06);transform:translateY(-1px)}
+
+/* Search */
+.search-box{
+  position:relative;
+  margin-bottom:12px;
+}
+.search-box input{
+  padding-left:36px;
+  border-radius:12px;
+}
+.search-box svg{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  width:16px;height:16px;color:var(--mut);pointer-events:none;
+}
+
+/* Section divider */
+.sec-div{
+  display:flex;align-items:center;gap:10px;
+  margin:18px 0 12px;
+  font:700 11px Inter;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--mut);
+}
+.sec-div:before,.sec-div:after{
+  content:"";flex:1;height:1px;background:var(--line);
+}
+</style>
+</head>
+<body>
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+<div class="wrap" id="root"></div>
+<div id="tally-mascot" title="Aidy Assistant"></div>
+<div id="tally-bubble"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   AIDY — Executive Assistant Desk
+   Embassy of the Arab Republic of Egypt · Washington D.C.
+   Designed & Implemented by Hesham Al Haddad
+   B.Sc. Information Systems (Very Good)
+   Postgraduate Diploma in Human Resources (Very Good)
+═══════════════════════════════════════════════════════════ */
+
+const $ = s => document.querySelector(s);
+const S = {
+  g(k, d){ try{ const v = localStorage.getItem('aidy6_'+k); return v ? JSON.parse(v) : d } catch(e){ return d } },
+  s(k, v){ try{ localStorage.setItem('aidy6_'+k, JSON.stringify(v)) } catch(e){} }
+};
+
+function h(t, a={}, ...c){
+  const e = document.createElement(t);
+  for(const k in a){
+    if(k==='on') for(const x in a.on) e.addEventListener(x, a.on[x]);
+    else if(k==='c') e.className = a[k];
+    else if(k==='html') e.innerHTML = a[k];
+    else e.setAttribute(k, a[k]);
+  }
+  c.flat().forEach(x => e.append(x instanceof Node ? x : document.createTextNode(x ?? '')));
+  return e;
+}
+
+const EMBASSY = {
+  name: 'Embassy of the Arab Republic of Egypt',
+  address: '3521 International Court NW, Washington, D.C. 20008, United States',
+  maps: 'https://maps.google.com/?q=3521+International+Court+NW,+Washington,+DC+20008',
+  phone: '+1 202 895 5400',
+  site: 'https://www.egyptembassy.net',
+  hr: 'HR@egyptembassy.net',
+  protocol: 'protocol@egyptembassy.net'
+};
+
+const D = {
+  meet: S.g('meet', []),
+  notes: S.g('notes', [
+    {t:'Confirm tomorrow meetings with the Ambassador', d:0},
+    {t:'Prepare the briefing folder', d:1},
+    {t:'Send the agenda by 08:00', d:2},
+    {t:'Call Protocol Office', d:3},
+    {t:'Review the weekly report', d:4}
+  ]),
+  docs: S.g('docs', []),
+  contacts: S.g('contacts', [
+    {id:'c1', name:'Protocol Office', org:'Embassy of Egypt', role:'Protocol', phone:'+1 202 966 6340', email:'protocol@egyptembassy.net', notes:''},
+    {id:'c2', name:'HR Desk', org:'Embassy of Egypt', role:'HR', phone:'', email:'HR@egyptembassy.net', notes:''}
+  ]),
+  corr: S.g('corr', []),
+  protocol: S.g('protocol', [
+    {id:'p1', t:'Confirm guest list with Protocol Office', done:false},
+    {id:'p2', t:'Prepare name cards / place cards', done:false},
+    {id:'p3', t:'Arrange seating plan', done:false},
+    {id:'p4', t:'Coordinate with security / gate access', done:false},
+    {id:'p5', t:'Prepare briefing note for Ambassador', done:false},
+    {id:'p6', t:'Confirm catering / refreshments', done:false},
+    {id:'p7', t:'Test AV / online link if hybrid', done:false},
+    {id:'p8', t:'Print agenda and talking points', done:false}
+  ]),
+  cfg: S.g('cfg', {wa:'', mail:'', pw:'', rem:false, mins:60})
+};
+
+const save = () => ['meet','notes','docs','contacts','corr','protocol','cfg'].forEach(k => S.s(k, D[k]));
+
+const I = {
+  home:'M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z',
+  cal:'M7 2v3M17 2v3M3 8h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z',
+  chart:'M18 20V10M12 20V4M6 20v-6',
+  mail:'M4 4h16v16H4zM4 8l8 6 8-6',
+  users:'M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z',
+  note:'M5 3h14v12l-6 6H5zM13 21v-6h6',
+  file:'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6',
+  gear:'M12 8a4 4 0 100 8 4 4 0 000-8zM12 2v3M12 19v3M2 12h3M19 12h3',
+  check:'M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11'
+};
+
+const ico = p => h('span',{html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="'+p+'"/></svg>'}).firstChild;
+
+const MAS_SVG = `<svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="60" cy="95" rx="38" ry="42" fill="#273E86"/>
+  <ellipse cx="60" cy="98" rx="30" ry="34" fill="#3B5B9D"/>
+  <ellipse cx="60" cy="105" rx="22" ry="26" fill="#E8F0FE"/>
+  <circle cx="60" cy="52" r="36" fill="#273E86"/>
+  <ellipse cx="60" cy="56" rx="28" ry="26" fill="#F8FAFC"/>
+  <circle cx="46" cy="52" r="12" fill="none" stroke="#0091DA" stroke-width="2.8"/>
+  <circle cx="74" cy="52" r="12" fill="none" stroke="#0091DA" stroke-width="2.8"/>
+  <path d="M58 52h4" stroke="#0091DA" stroke-width="2.2"/>
+  <circle cx="46" cy="52" r="5.5" fill="#1e293b"/>
+  <circle cx="74" cy="52" r="5.5" fill="#1e293b"/>
+  <circle cx="48" cy="50" r="2" fill="#fff"/>
+  <circle cx="76" cy="50" r="2" fill="#fff"/>
+  <path d="M60 58 L55 66 L65 66 Z" fill="#F59E0B"/>
+  <path d="M32 28 Q28 12 40 22" fill="#273E86"/>
+  <path d="M88 28 Q92 12 80 22" fill="#273E86"/>
+  <ellipse cx="28" cy="95" rx="12" ry="22" fill="#1e3a6e" transform="rotate(-15 28 95)"/>
+  <ellipse cx="92" cy="95" rx="12" ry="22" fill="#1e3a6e" transform="rotate(15 92 95)"/>
+  <g transform="translate(78,88) rotate(12)">
+    <rect x="0" y="0" width="22" height="28" rx="2" fill="#fff" stroke="#273E86" stroke-width="1.5"/>
+    <rect x="0" y="0" width="22" height="6" fill="#0091DA"/>
+    <line x1="4" y1="12" x2="18" y2="12" stroke="#94a3b8" stroke-width="1.2"/>
+    <line x1="4" y1="17" x2="18" y2="17" stroke="#94a3b8" stroke-width="1.2"/>
+    <line x1="4" y1="22" x2="14" y2="22" stroke="#94a3b8" stroke-width="1.2"/>
+  </g>
+  <ellipse cx="48" cy="138" rx="10" ry="5" fill="#F59E0B"/>
+  <ellipse cx="72" cy="138" rx="10" ry="5" fill="#F59E0B"/>
+  <circle cx="60" cy="118" r="9" fill="#0091DA"/>
+  <text x="60" y="121.5" text-anchor="middle" font-size="8" font-weight="800" fill="#fff" font-family="Inter,Arial">A</text>
+</svg>`;
+
+const mk = html => { const d = document.createElement('div'); d.innerHTML = html; return d.firstChild };
+const uid = () => 'id' + Math.random().toString(36).slice(2,9);
+const tday = () => { const d = new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0') };
+const mins = s => { const a = (s||'0:0').split(':'); return (+a[0])*60 + (+a[1]||0) };
+
+function parts(tz){
+  const p = {};
+  new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'numeric',minute:'numeric',second:'numeric',hourCycle:'h23',weekday:'short',day:'numeric',month:'short'})
+    .formatToParts(new Date()).forEach(x => p[x.type]=x.value);
+  return p;
+}
+
+function clock(tz, city, variant){
+  const e = h('div',{c:'clkx '+variant});
+  e.innerHTML = `<div class="sky"></div>
+    <div class="city">${city}</div>
+    <div class="time"></div>
+    <div class="meta"></div>
+    <div class="dial"><svg viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="46" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.45)" stroke-width="2"/>
+      ${[...Array(12)].map((_,i)=>`<line x1="50" y1="8" x2="50" y2="${i%3?13:17}" stroke="rgba(255,255,255,.7)" stroke-width="${i%3?1.2:2.2}" transform="rotate(${i*30} 50 50)"/>`).join('')}
+      <line class="hh" x1="50" y1="52" x2="50" y2="28" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
+      <line class="mh" x1="50" y1="52" x2="50" y2="18" stroke="#e0f2fe" stroke-width="2.5" stroke-linecap="round"/>
+      <line class="sh" x1="50" y1="54" x2="50" y2="14" stroke="#FFD43B" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="50" cy="50" r="3.5" fill="#FFD43B"/>
+    </svg></div>`;
+  const sky = e.querySelector('.sky');
+  const up = () => {
+    const p = parts(tz), H = +p.hour, M = +p.minute, Sx = +p.second, night = H < 6 || H >= 18;
+    e.classList.toggle('night', night);
+    sky.innerHTML = night
+      ? `<div class="moon"></div>${[...Array(8)].map((_,i)=>`<i class="star" style="left:${10+i*11}%;top:${8+(i%4)*14}%;animation-delay:-${i*0.4}s"></i>`).join('')}`
+      : `<div class="sun"></div>`;
+    const r = (q,a) => e.querySelector(q).setAttribute('transform',`rotate(${a} 50 50)`);
+    r('.hh', (H%12)*30 + M/2); r('.mh', M*6); r('.sh', Sx*6);
+    e.querySelector('.time').textContent = String(H).padStart(2,'0')+':'+String(M).padStart(2,'0')+':'+String(Sx).padStart(2,'0');
+    e.querySelector('.meta').textContent = `${p.weekday} ${p.day} ${p.month} · ${night?'Night':'Daytime'}`;
+  };
+  up(); e._u = up; return e;
+}
+setInterval(() => document.querySelectorAll('.clkx').forEach(c => c._u && c._u()), 1000);
+
+function confetti(){
+  for(let i=0;i<22;i++){
+    const c = h('i',{c:'cf',style:`left:${Math.random()*100}vw;background:${['#273E86','#0091DA','#FFD43B','#e11d48','#c9a227'][i%5]};animation-delay:${Math.random()*.4}s`});
+    document.body.append(c);
+    setTimeout(()=>c.remove(),1700);
+  }
+}
+
+const toast = t => {
+  const e = h('div',{style:'position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#1a2f6b;color:#fff;padding:11px 20px;border-radius:99px;z-index:80;font-weight:700;font-size:13px;box-shadow:0 8px 24px -6px rgba(26,47,107,.5)'},t);
+  document.body.append(e);
+  setTimeout(()=>e.remove(),2300);
+};
+
+const cp = t => { try{ navigator.clipboard.writeText(t); toast('Copied to clipboard') } catch(e){ toast('Copy failed') } };
+
+const sendWA = (t, num) => {
+  const target = (num || D.cfg.wa || '').replace(/\D/g,'');
+  if(!target){
+    toast('Save a WhatsApp number first in Settings');
+    tab = 'set'; render();
+    return;
+  }
+  window.open('https://wa.me/'+target+'?text='+encodeURIComponent(t), '_blank');
+};
+
+const sendMail = (s, b, to) => {
+  const target = to || D.cfg.mail || '';
+  if(!target){
+    toast('Save a default email first in Settings');
+    tab = 'set'; render();
+    return;
+  }
+  window.open('mailto:'+target+'?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(b));
+};
+
+/* One-click share using saved defaults. Official tone is already built into the templates. */
+const shareRow = (sub, txt) => {
+  const hasWA = !!(D.cfg.wa || '').replace(/\D/g,'');
+  const hasMail = !!(D.cfg.mail || '');
+  return [
+    h('button',{
+      c:'btn w s',
+      title: hasWA ? 'Send via your saved WhatsApp number' : 'Set WhatsApp number in Settings first',
+      on:{click:()=>sendWA(txt)}
+    }, hasWA ? 'WhatsApp ✓' : 'WhatsApp'),
+    h('button',{
+      c:'btn b s',
+      title: hasMail ? 'Send via your saved email' : 'Set default email in Settings first',
+      on:{click:()=>sendMail(sub, txt)}
+    }, hasMail ? 'Email ✓' : 'Email'),
+    h('button',{c:'btn s ghost',on:{click:()=>cp(txt)}},'Copy')
+  ];
+};
+
+function mTxt(m){
+  const loc = m.mode==='online'
+    ? `Mode: Online\nLink: ${m.link||'TBC'}`
+    : `Mode: In-person\nVenue: ${m.loc||'TBC'}${m.address?'\nAddress: '+m.address:''}${m.maps?'\nMap: '+m.maps:''}`;
+  return `Your Excellency,\nA reminder of your meeting:\n\n${m.title}\nDate: ${m.date}, ${m.start}${m.end?'–'+m.end:''} (Washington time)\n${loc}\nAttendees: ${m.who||'-'}${m.notes?'\nBrief: '+m.notes:''}\n\nRespectfully,\nOffice of the Ambassador · Aidy`;
+}
+
+function inviteTxt(m){
+  const loc = m.mode==='online'
+    ? `This meeting will be held online.\nLink: ${m.link||'Will be shared shortly'}`
+    : `Venue: ${m.loc||EMBASSY.name}\nAddress: ${m.address||EMBASSY.address}${m.maps?'\nMap: '+m.maps:''}`;
+  return `You are invited to a meeting with the Ambassador of Egypt.\n\nSubject: ${m.title}\nDate: ${m.date}\nTime: ${m.start}${m.end?' – '+m.end:''} (Washington D.C. time)\n${loc}\n\n${m.notes?'Notes: '+m.notes+'\n\n':''}Kind regards,\nOffice of the Ambassador\nEmbassy of the Arab Republic of Egypt\nWashington D.C.`;
+}
+
+function weekRange(){
+  const now = new Date();
+  const day = now.getDay();
+  const mon = new Date(now);
+  mon.setDate(now.getDate() - (day===0?6:day-1));
+  mon.setHours(0,0,0,0);
+  const sun = new Date(mon);
+  sun.setDate(mon.getDate()+6);
+  return {from: mon.toISOString().slice(0,10), to: sun.toISOString().slice(0,10)};
+}
+function inWeek(d){ const w = weekRange(); return d>=w.from && d<=w.to }
+
+function analytics(){
+  const all = D.meet;
+  const thisWeek = all.filter(m => inWeek(m.date));
+  const thisMonth = all.filter(m => (m.date||'').slice(0,7) === tday().slice(0,7));
+  const done = all.filter(m => m.done).length;
+  const pending = all.filter(m => !m.done).length;
+  const online = all.filter(m => m.mode==='online').length;
+  const offline = all.filter(m => m.mode!=='online').length;
+  const byDay = {};
+  thisWeek.forEach(m => { byDay[m.date] = (byDay[m.date]||0)+1 });
+  const busiest = Object.entries(byDay).sort((a,b)=>b[1]-a[1])[0];
+  const insights = [];
+  if(thisWeek.length===0) insights.push('No meetings scheduled this week.');
+  else if(thisWeek.length>=5) insights.push(`Busy week ahead: ${thisWeek.length} meetings. Recommend preparing briefings early.`);
+  else insights.push(`${thisWeek.length} meeting(s) this week.`);
+  if(busiest) insights.push(`Busiest day: ${busiest[0]} (${busiest[1]} meetings).`);
+  if(online && offline) insights.push(`Mix: ${online} online · ${offline} in-person.`);
+  const upcoming = all.filter(m => !m.done && m.date >= tday()).sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)).slice(0,5);
+  return {all:all.length, thisWeek:thisWeek.length, thisMonth:thisMonth.length, done, pending, online, offline, byDay, busiest, insights, upcoming, weekMeetings:thisWeek};
+}
+
+let open = true, tab = 'home';
+
+async function hash(s){
+  try{
+    const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('aidy'+s));
+    return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  }catch(e){
+    let x = 5381;
+    for(const c of 'aidy'+s) x = (x*33 ^ c.charCodeAt(0)) >>> 0;
+    return 'f'+x;
+  }
+}
+
+function lock(){
+  const r = $('#root'); r.innerHTML = '';
+  const first = !D.cfg.pw;
+  const i = h('input',{type:'password', placeholder: first?'Create a private password (min 4)':'Enter password', autocomplete:'off'});
+  const msg = h('p',{c:'m'}, first ? 'First visit — choose a private password to secure the desk.' : 'Enter your password to unlock.');
+  const go = async () => {
+    const v = i.value;
+    if(v.length < 4){ msg.textContent = 'At least 4 characters required.'; return }
+    const x = await hash(v);
+    if(first){ D.cfg.pw = x; save(); open = true; render(); confetti() }
+    else if(x === D.cfg.pw){ open = true; render(); confetti() }
+    else { msg.textContent = 'Incorrect password.'; i.value = '' }
+  };
+  i.addEventListener('keydown', e => { if(e.key==='Enter') go() });
+  r.append(h('div',{c:'ov'},
+    h('div',{c:'lock'},
+      mk(MAS_SVG),
+      h('h1',{},'Aidy'),
+      h('p',{c:'m',style:'margin:2px 0 16px;font-weight:700'},'Executive Assistant Desk · Embassy of Egypt'),
+      i, msg,
+      h('button',{c:'btn',style:'width:100%;margin-top:14px',on:{click:go}}, first?'Create & Enter':'Unlock'),
+      h('p',{c:'credit'},'Private · Local storage only<br>Designed & Implemented by Hesham Al Haddad')
+    )
+  ));
+}
+
+let lastRem = 0;
+function checkReminders(){
+  if(!D.cfg.rem || !open) return;
+  if(Date.now() - lastRem < (+D.cfg.mins||60)*60000) return;
+  const t = tday(), hm = new Date().getHours()*60 + new Date().getMinutes();
+  const next = D.meet.filter(m => m.date===t && !m.done && mins(m.start)>=hm).sort((a,b)=>mins(a.start)-mins(b.start))[0];
+  if(!next) return;
+  lastRem = Date.now();
+  const txt = mTxt(next);
+  let b = $('#bnr'); if(b) b.remove();
+  b = h('div',{id:'bnr',c:'bnr'},
+    h('div',{style:'flex:1;font-size:13px;white-space:pre-wrap'},`Upcoming meeting\n${next.start} · ${next.title}`),
+    h('div',{style:'display:flex;gap:6px;flex-wrap:wrap'},
+      h('button',{c:'btn w s',on:{click:()=>sendWA(txt)}},'WhatsApp'),
+      h('button',{c:'btn s ghost',style:'background:#fff;color:#1a2f6b',on:{click:()=>sendMail('Meeting reminder: '+next.title,txt)}},'Email'),
+      h('button',{c:'x',on:{click:()=>b.remove()}},'✕')
+    )
+  );
+  document.body.append(b);
+}
+setInterval(checkReminders, 20000);
+
+function multiField(label, placeholder, list){
+  const wrap = h('div',{c:'wide'});
+  const input = h('input',{type:'text',placeholder});
+  const chips = h('div',{c:'multi-list'});
+  const redraw = () => {
+    chips.innerHTML = '';
+    list.forEach((v,i) => chips.append(h('span',{}, v, h('button',{type:'button',on:{click:()=>{list.splice(i,1);redraw()}}},'×'))));
+  };
+  const add = () => {
+    const v = input.value.trim();
+    if(!v) return;
+    v.split(/[,;\s]+/).map(x=>x.trim()).filter(Boolean).forEach(x => { if(!list.includes(x)) list.push(x) });
+    input.value = ''; redraw();
+  };
+  input.addEventListener('keydown', e => { if(e.key==='Enter'){ e.preventDefault(); add() } });
+  wrap.append(
+    h('label',{}, label, input),
+    h('div',{c:'acts',style:'margin-top:4px'}, h('button',{c:'btn s',type:'button',on:{click:add}},'Add')),
+    chips
+  );
+  redraw();
+  return wrap;
+}
+
+/* ═══════════════ VIEWS ═══════════════ */
+
+const views = {
+
+home(){
+  const dc = parts('America/New_York'), ca = parts('Africa/Cairo');
+  const diff = ((+ca.hour - +dc.hour) + 24) % 24;
+  const hr = +dc.hour;
+  const g = hr < 12 ? 'Good morning' : hr < 18 ? 'Good afternoon' : 'Good evening';
+  const t = tday();
+  const tm = D.meet.filter(m => m.date===t && !m.done).sort((a,b)=>mins(a.start)-mins(b.start));
+  const an = analytics();
+
+  const todayList = tm.length
+    ? tm.map(m => h('div',{c:'row',style:'margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line)'},
+        h('div',{},
+          h('b',{}, `${m.start}${m.end?'–'+m.end:''}  ${m.title}`),
+          h('div',{c:'m'}, (m.mode==='online'?'Online':'In-person') + (m.loc?' · '+m.loc:''))
+        ),
+        h('div',{c:'acts',style:'margin:0'}, ...shareRow('Meeting', mTxt(m)))
+      ))
+    : [h('div',{c:'empty'},'No meetings scheduled for today.')];
+
+  return [
+    h('div',{c:'clk-wrap'},
+      clock('Africa/Cairo','Cairo','cairo'),
+      clock('America/New_York','Washington D.C.','dc')
+    ),
+    h('div',{c:'card hero'},
+      h('div',{c:'mas'}, mk(MAS_SVG)),
+      h('div',{c:'eyebrow',style:'color:#8fdcff'},'Welcome'),
+      h('h2',{}, `${g}, Your Excellency`),
+      h('p',{}, `Cairo is ${diff} hours ahead of Washington. Aidy is ready to support your day — calendar, correspondence, files and insights.`)
+    ),
+    h('div',{c:'stats'},
+      h('div',{}, h('b',{}, String(tm.length)), h('span',{},'Meetings today')),
+      h('div',{}, h('b',{}, String(an.thisWeek)), h('span',{},'This week')),
+      h('div',{}, h('b',{}, String(an.pending)), h('span',{},'Pending')),
+      h('div',{}, h('b',{}, String(D.docs.length)), h('span',{},'Files'))
+    ),
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Quick Actions'),
+      h('div',{c:'quick-strip'},
+        h('button',{c:'qbtn',on:{click:()=>{tab='meet';render()}}}, '＋ New Meeting'),
+        h('button',{c:'qbtn',on:{click:()=>{tab='corr';render()}}}, '✉ Draft Letter'),
+        h('button',{c:'qbtn',on:{click:()=>{tab='protocol';render()}}}, '☑ Protocol List'),
+        h('button',{c:'qbtn',on:{click:()=>{tab='analytics';render()}}}, '📊 Weekly Report')
+      )
+    ),
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Schedule'),
+      h('h2',{},"Today's Meetings"),
+      ...todayList
+    ),
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Location'),
+      h('h2',{},'Embassy of Egypt · Washington D.C.'),
+      h('div',{c:'emb'},
+        h('div',{c:'emb-row'},
+          h('div',{c:'emb-ico',html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>'}),
+          h('div',{c:'emb-txt'}, h('b',{},'Address'), h('span',{}, EMBASSY.address))
+        ),
+        h('div',{c:'emb-row'},
+          h('div',{c:'emb-ico',html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.8 19.8 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z"/></svg>'}),
+          h('div',{c:'emb-txt'}, h('b',{},'Phone'), h('span',{}, EMBASSY.phone))
+        ),
+        h('div',{c:'emb-row'},
+          h('div',{c:'emb-ico',html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>'}),
+          h('div',{c:'emb-txt'}, h('b',{},'Website'), h('span',{},'egyptembassy.net'))
+        )
+      ),
+      h('div',{c:'acts',style:'margin-top:12px'},
+        h('a',{href:EMBASSY.maps,target:'_blank',c:'btn s',style:'text-decoration:none'},'Open in Google Maps'),
+        h('button',{c:'btn s b',on:{click:()=>cp(EMBASSY.address+'\n'+EMBASSY.maps)}},'Copy address + map'),
+        h('a',{href:EMBASSY.site,target:'_blank',c:'btn s ghost',style:'text-decoration:none'},'Official website')
+      )
+    )
+  ];
+},
+
+meet(){
+  const emails = [], phones = [];
+  const F = {};
+  const modeSel = h('select',{},
+    h('option',{value:'offline'},'In-person (offline)'),
+    h('option',{value:'online'},'Online')
+  );
+  const locBox = h('div',{c:'wide'});
+
+  function drawLoc(){
+    locBox.innerHTML = '';
+    if(modeSel.value==='online'){
+      F.link = h('input',{type:'url',placeholder:'https://…'});
+      locBox.append(h('label',{},'Online link', F.link));
+    } else {
+      F.loc = h('input',{type:'text',value:EMBASSY.name});
+      F.address = h('input',{type:'text',value:EMBASSY.address});
+      F.maps = h('input',{type:'url',value:EMBASSY.maps});
+      locBox.append(
+        h('label',{},'Venue name', F.loc),
+        h('label',{c:'wide'},'Full address', F.address),
+        h('label',{c:'wide'},'Google Maps link', F.maps),
+        h('div',{c:'acts'},
+          h('button',{c:'btn s ghost',type:'button',on:{click:()=>{
+            F.loc.value = EMBASSY.name;
+            F.address.value = EMBASSY.address;
+            F.maps.value = EMBASSY.maps;
+          }}},'Use Embassy address')
+        )
+      );
+    }
+  }
+  modeSel.onchange = drawLoc; drawLoc();
+
+  F.title = h('input',{type:'text',placeholder:'e.g. Bilateral meeting with …'});
+  F.date = h('input',{type:'date'});
+  F.start = h('input',{type:'time'});
+  F.end = h('input',{type:'time'});
+  F.who = h('input',{type:'text',placeholder:'Names of attendees'});
+  F.notes = h('textarea',{placeholder:'Briefing points, talking points, preparation notes…'});
+  F.date.value = tday();
+
+  const f = h('form',{},
+    h('label',{c:'wide'},'Meeting title', F.title),
+    h('label',{},'Date', F.date),
+    h('label',{},'From', F.start),
+    h('label',{},'To', F.end),
+    h('label',{},'Mode', modeSel),
+    locBox,
+    h('label',{c:'wide'},'Attendees (names)', F.who),
+    multiField('Guest emails','email@example.com', emails),
+    multiField('Guest phones / WhatsApp','+1 202 555 0100', phones),
+    h('label',{c:'wide'},'Brief / preparation notes', F.notes)
+  );
+
+  f.append(h('button',{c:'btn wide',type:'button',on:{click:()=>{
+    if(!F.title.value || !F.start.value) return toast('Title and start time are required');
+    const m = {
+      id: uid(),
+      title: F.title.value,
+      date: F.date.value,
+      start: F.start.value,
+      end: F.end.value,
+      mode: modeSel.value,
+      loc: modeSel.value==='offline' && F.loc ? F.loc.value : '',
+      address: modeSel.value==='offline' && F.address ? F.address.value : '',
+      maps: modeSel.value==='offline' && F.maps ? F.maps.value : '',
+      link: modeSel.value==='online' && F.link ? F.link.value : '',
+      who: F.who.value,
+      emails: [...emails],
+      phones: [...phones],
+      notes: F.notes.value,
+      done: false,
+      created: Date.now()
+    };
+    D.meet.push(m); save();
+    const inv = inviteTxt(m);
+    m.emails.forEach(em => sendMail('Invitation: '+m.title, inv, em));
+    m.phones.forEach(ph => sendWA(inv, ph));
+    toast(m.emails.length || m.phones.length ? 'Meeting saved & invites opened' : 'Meeting saved');
+    render(); confetti();
+  }}},'Save Meeting & Notify Guests'));
+
+  const L = [...D.meet].sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
+  const cards = L.length ? L.map(m => {
+    const clash = D.meet.some(o => o.id!==m.id && o.date===m.date && !o.done && mins(o.start)<mins(m.end||m.start)+1 && mins(m.start)<mins(o.end||o.start)+1);
+    const locParts = [];
+    if(m.mode==='online' && m.link) locParts.push(h('div',{c:'m',style:'margin-top:6px'}, 'Link: ', h('a',{href:m.link,target:'_blank',style:'color:var(--blue)'}, m.link)));
+    if(m.mode!=='online'){
+      const kids = [document.createTextNode((m.loc||'')+(m.address?' · '+m.address:''))];
+      if(m.maps) kids.push(h('div',{}, h('a',{href:m.maps,target:'_blank',style:'color:var(--blue)'},'Open map')));
+      locParts.push(h('div',{c:'m',style:'margin-top:6px'}, ...kids));
+    }
+    const guests = [];
+    if(m.emails?.length) m.emails.forEach(e => guests.push(h('span',{},'✉ '+e)));
+    if(m.phones?.length) m.phones.forEach(p => guests.push(h('span',{},'📱 '+p)));
+
+    return h('div',{c:'card'+(m.done?' done':'')},
+      h('div',{c:'row'},
+        h('div',{},
+          h('b',{}, m.title),
+          h('div',{c:'m'}, `${m.date} · ${m.start}${m.end?'–'+m.end:''}${m.who?' · '+m.who:''}`),
+          h('div',{style:'margin-top:6px'},
+            m.mode==='online' ? h('span',{c:'pill c'},'Online') : h('span',{c:'pill o'},'In-person'),
+            m.date===tday() ? h('span',{c:'pill'},'Today') : '',
+            clash && !m.done ? h('span',{c:'pill r'},'Time clash') : ''
+          ),
+          ...locParts,
+          guests.length ? h('div',{c:'multi-list'}, ...guests) : ''
+        ),
+        h('div',{c:'acts'},
+          h('button',{c:'btn w s',on:{click:()=>{
+            (m.phones||[]).forEach(ph => sendWA(inviteTxt(m), ph));
+            if(!(m.phones||[]).length) sendWA(inviteTxt(m));
+          }}},'WhatsApp'),
+          h('button',{c:'btn b s',on:{click:()=>{
+            (m.emails||[]).forEach(em => sendMail('Invitation: '+m.title, inviteTxt(m), em));
+            if(!(m.emails||[]).length) sendMail('Invitation: '+m.title, inviteTxt(m));
+          }}},'Email'),
+          h('button',{c:'btn s ghost',on:{click:()=>cp(inviteTxt(m))}},'Copy'),
+          h('button',{c:'btn s b',on:{click:()=>{ m.done=!m.done; save(); render(); if(m.done) confetti() }}}, m.done?'Undo':'Done'),
+          h('button',{c:'x',on:{click:()=>{ D.meet = D.meet.filter(o=>o!==m); save(); render() }}},'Delete')
+        )
+      )
+    );
+  }) : [h('div',{c:'card empty'},'No meetings yet. Create your first one above.')];
+
+  return [
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Calendar'),
+      h('h2',{},"Ambassador's Meetings"),
+      h('p',{c:'m'},'Multi-guest invites · Online or in-person with address & map · Clash detection · Saved locally.')
+    ),
+    h('div',{c:'card'}, f),
+    ...cards
+  ];
+},
+
+analytics(){
+  const an = analytics();
+  const maxDay = Math.max(1, ...Object.values(an.byDay));
+
+  const report = () => {
+    const w = weekRange();
+    let t = `AIDY · WEEKLY MEETING REPORT\nEmbassy of the Arab Republic of Egypt · Washington D.C.\nPeriod: ${w.from} → ${w.to}\nGenerated: ${new Date().toLocaleString()}\n\n`;
+    t += `SUMMARY\n• This week: ${an.thisWeek}\n• This month: ${an.thisMonth}\n• Total recorded: ${an.all}\n• Completed: ${an.done} | Pending: ${an.pending}\n• Online: ${an.online} | In-person: ${an.offline}\n\n`;
+    t += `INSIGHTS\n${an.insights.map(i=>'• '+i).join('\n')}\n`;
+    if(an.weekMeetings.length){
+      t += '\nTHIS WEEK\n';
+      an.weekMeetings.sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start)).forEach((m,i)=>{
+        t += `${i+1}. ${m.date} ${m.start} — ${m.title} (${m.mode==='online'?'Online':'In-person'})${m.done?' [Done]':''}\n`;
+      });
+    }
+    t += '\n—\nPrepared by Aidy · Office of the Ambassador\nDesigned & Implemented by Hesham Al Haddad';
+    return t;
+  };
+
+  const dayBars = Object.keys(an.byDay).length
+    ? Object.entries(an.byDay).sort((a,b)=>a[0].localeCompare(b[0])).map(([d,n]) =>
+        h('div',{style:'margin-bottom:10px'},
+          h('div',{c:'row'},
+            h('span',{style:'font-size:13px;font-weight:600'}, d),
+            h('span',{c:'m'}, n+' meeting'+(n>1?'s':''))
+          ),
+          h('div',{c:'an-bar'}, h('i',{style:`width:${Math.round(n/maxDay*100)}%`}))
+        )
+      )
+    : [h('p',{c:'m'},'No meetings this week yet.')];
+
+  const upList = an.upcoming.length
+    ? an.upcoming.map(m => h('div',{c:'row',style:'margin-bottom:8px'},
+        h('div',{}, h('b',{}, m.title), h('div',{c:'m'}, `${m.date} · ${m.start}`)),
+        h('div',{c:'acts',style:'margin:0'}, ...shareRow('Meeting', mTxt(m)))
+      ))
+    : [h('p',{c:'m'},'No upcoming meetings.')];
+
+  return [
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Intelligence'),
+      h('h2',{},'Meeting Analytics & Insights'),
+      h('p',{c:'m'},'Live analysis of the Ambassador’s calendar — designed for decision support.')
+    ),
+    h('div',{c:'an-grid'},
+      h('div',{c:'an-card'}, h('b',{},String(an.thisWeek)), h('span',{},'This week')),
+      h('div',{c:'an-card'}, h('b',{},String(an.thisMonth)), h('span',{},'This month')),
+      h('div',{c:'an-card'}, h('b',{},String(an.done)), h('span',{},'Completed')),
+      h('div',{c:'an-card'}, h('b',{},String(an.pending)), h('span',{},'Pending')),
+      h('div',{c:'an-card'}, h('b',{},String(an.online)), h('span',{},'Online')),
+      h('div',{c:'an-card'}, h('b',{},String(an.offline)), h('span',{},'In-person'))
+    ),
+    h('div',{c:'card'}, h('h3',{},'This week by day'), ...dayBars),
+    h('div',{c:'card'}, h('h3',{},'Insights'), ...an.insights.map(i => h('div',{c:'insight'}, h('b',{},'Insight · '), i))),
+    h('div',{c:'card'}, h('h3',{},'Upcoming'), ...upList),
+    h('div',{c:'card'},
+      h('h3',{},'Weekly Report'),
+      h('p',{c:'m'},'Formal summary ready for the Ambassador or Protocol Office.'),
+      h('div',{c:'acts'},
+        h('button',{c:'btn',on:{click:()=>{cp(report()); toast('Report copied')}}},'Copy Report'),
+        h('button',{c:'btn w',on:{click:()=>sendWA(report())}}, D.cfg.wa ? 'WhatsApp ✓' : 'WhatsApp'),
+        h('button',{c:'btn b',on:{click:()=>sendMail('Weekly Meeting Report — Embassy of Egypt', report())}}, D.cfg.mail ? 'Email ✓' : 'Email')
+      )
+    )
+  ];
+},
+
+notes(){
+  const t = h('textarea',{placeholder:'Write a quick note or reminder…'});
+  return [
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Reminders'),
+      h('h2',{},'Sticky Notes'),
+      t,
+      h('div',{c:'acts'},
+        h('button',{c:'btn',on:{click:()=>{
+          if(!t.value.trim()) return;
+          D.notes.unshift({t:t.value, d:D.notes.length%6});
+          save(); render();
+        }}},'Stick it')
+      )
+    ),
+    h('div',{c:'sticks'},
+      ...D.notes.map((n,i) => h('div',{c:'sn s'+(n.d%6)},
+        h('div',{}, n.t),
+        h('div',{},
+          h('button',{c:'x',on:{click:()=>{n.d++; save(); render()}}},'Restyle'),
+          h('button',{c:'x',on:{click:()=>{D.notes.splice(i,1); save(); render()}}},'Remove')
+        )
+      ))
+    )
+  ];
+},
+
+corr(){
+  const templates = [
+    {title:'Official Invitation', body:'Your Excellency,\n\nOn behalf of the Ambassador of the Arab Republic of Egypt, I have the honour to invite you to…\n\nDate:\nTime:\nVenue:\n\nWe look forward to the pleasure of your company.\n\nRespectfully,\nOffice of the Ambassador'},
+    {title:'Meeting Confirmation', body:'Dear [Name],\n\nThis is to confirm the meeting with His Excellency the Ambassador on [date] at [time] at [location].\n\nPlease confirm your attendance.\n\nKind regards,\nOffice of the Ambassador'},
+    {title:'Thank-You Letter', body:'Dear [Name],\n\nOn behalf of the Ambassador, please accept our sincere thanks for…\n\nWe remain at your disposal.\n\nRespectfully,\nOffice of the Ambassador'},
+    {title:'Internal Memo', body:'MEMORANDUM\n\nTo:\nFrom: Office of the Ambassador\nDate:\nSubject:\n\n[Body]\n\nFor your information and necessary action.'},
+    {title:'Briefing Note Request', body:'Dear Colleague,\n\nKindly prepare a concise briefing note on the following subject for the Ambassador:\n\nSubject:\nDeadline:\n\nThank you for your support.\n\nOffice of the Ambassador'}
+  ];
+
+  const F = {};
+  F.sub = h('input',{type:'text',placeholder:'Subject line'});
+  F.body = h('textarea',{style:'min-height:160px',placeholder:'Body of the letter or email…'});
+
+  const f = h('form',{},
+    h('label',{c:'wide'},'Subject', F.sub),
+    h('label',{c:'wide'},'Body', F.body)
+  );
+  f.append(h('div',{c:'acts wide'},
+    h('button',{c:'btn',type:'button',on:{click:()=>{
+      if(!F.sub.value && !F.body.value) return toast('Add subject or body');
+      D.corr.unshift({id:uid(), sub:F.sub.value, body:F.body.value, at:Date.now()});
+      save(); render(); toast('Draft saved');
+    }}},'Save Draft'),
+    h('button',{c:'btn b',type:'button',on:{click:()=>sendMail(F.sub.value, F.body.value)}}, D.cfg.mail ? 'Email ✓' : 'Email'),
+    h('button',{c:'btn w',type:'button',on:{click:()=>sendWA((F.sub.value?F.sub.value+'\n\n':'')+F.body.value)}}, D.cfg.wa ? 'WhatsApp ✓' : 'WhatsApp'),
+    h('button',{c:'btn s ghost',type:'button',on:{click:()=>cp((F.sub.value?F.sub.value+'\n\n':'')+F.body.value)}},'Copy')
+  ));
+
+  const drafts = D.corr.length ? [
+    h('div',{c:'card'},
+      h('h3',{},'Recent Drafts'),
+      ...D.corr.slice(0,8).map((c,i) => h('div',{c:'row',style:'margin-bottom:8px'},
+        h('div',{},
+          h('b',{}, c.sub || '(No subject)'),
+          h('div',{c:'m'}, new Date(c.at).toLocaleString())
+        ),
+        h('div',{c:'acts'},
+          h('button',{c:'btn s',on:{click:()=>{F.sub.value=c.sub; F.body.value=c.body}}},'Load'),
+          h('button',{c:'x',on:{click:()=>{D.corr.splice(i,1); save(); render()}}},'Delete')
+        )
+      ))
+    )
+  ] : [];
+
+  return [
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Correspondence'),
+      h('h2',{},'Official Letters & Emails'),
+      h('p',{c:'m'},'Draft professional correspondence with ready templates.')
+    ),
+    h('div',{c:'card'},
+      h('h3',{},'Templates'),
+      h('div',{style:'display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px'},
+        ...templates.map(t => h('div',{c:'tpl',on:{click:()=>{F.sub.value=t.title; F.body.value=t.body}}},
+          h('b',{}, t.title),
+          h('div',{c:'m',style:'margin-top:4px;font-size:12px'}, t.body.slice(0,68)+'…')
+        ))
+      )
+    ),
+    h('div',{c:'card'}, f),
+    ...drafts
+  ];
+},
+
+contacts(){
+  const F = {};
+  ['name','org','role','phone','email'].forEach(k => F[k] = h('input',{type: k==='email'?'email':k==='phone'?'tel':'text'}));
+  F.notes = h('textarea',{placeholder:'Notes…'});
+
+  const f = h('form',{},
+    h('label',{},'Full name', F.name),
+    h('label',{},'Organisation', F.org),
+    h('label',{},'Role', F.role),
+    h('label',{},'Phone', F.phone),
+    h('label',{},'Email', F.email),
+    h('label',{c:'wide'},'Notes', F.notes)
+  );
+  f.append(h('button',{c:'btn wide',type:'button',on:{click:()=>{
+    if(!F.name.value) return toast('Name is required');
+    D.contacts.unshift({
+      id:uid(), name:F.name.value, org:F.org.value, role:F.role.value,
+      phone:F.phone.value, email:F.email.value, notes:F.notes.value
+    });
+    save(); render(); toast('Contact added');
+  }}},'Add Contact'));
+
+  const list = D.contacts.length
+    ? D.contacts.map((c,i) => h('div',{c:'card ct-card'},
+        h('div',{c:'row'},
+          h('div',{},
+            h('b',{}, c.name),
+            h('div',{c:'m'}, [c.role, c.org].filter(Boolean).join(' · ')),
+            c.phone ? h('div',{c:'m'}, c.phone) : '',
+            c.email ? h('div',{c:'m'}, c.email) : ''
+          ),
+          h('div',{c:'acts'},
+            c.email ? h('button',{c:'btn s b',on:{click:()=>sendMail('','',c.email)}},'Email') : '',
+            c.phone ? h('button',{c:'btn w s',on:{click:()=>sendWA('Hello '+c.name, c.phone)}},'WhatsApp') : '',
+            h('button',{c:'x',on:{click:()=>{D.contacts.splice(i,1); save(); render()}}},'Delete')
+          )
+        )
+      ))
+    : [h('div',{c:'card empty'},'No contacts yet.')];
+
+  return [
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Directory'),
+      h('h2',{},'Contact Database'),
+      h('p',{c:'m'},'Diplomatic, protocol and operational contacts.')
+    ),
+    h('div',{c:'card'}, f),
+    ...list
+  ];
+},
+
+files(){
+  const levels = ['Public','Internal','Confidential','Secret'];
+  const drop = h('div',{c:'drop'},
+    h('div',{style:'font-size:26px;margin-bottom:6px'},'📁'),
+    h('div',{style:'font-weight:700;margin-bottom:4px'},'Drop or click to upload'),
+    h('div',{c:'m'},'PDF, DOCX, images, or any file. Classify after upload.'),
+    h('input',{type:'file',multiple:true})
+  );
+  const inp = drop.querySelector('input');
+  drop.onclick = () => inp.click();
+  drop.ondragover = e => { e.preventDefault(); drop.classList.add('drag') };
+  drop.ondragleave = () => drop.classList.remove('drag');
+
+  function handleFiles(list){
+    [...list].forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        D.docs.unshift({
+          id:uid(), name:file.name, size:file.size, type:file.type||'file',
+          level:'Internal', at:Date.now(), data:reader.result
+        });
+        save(); render(); toast(file.name+' saved');
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+  drop.ondrop = e => { e.preventDefault(); drop.classList.remove('drag'); handleFiles(e.dataTransfer.files) };
+  inp.onchange = () => handleFiles(inp.files);
+
+  const list = [...D.docs].sort((a,b)=>b.at-a.at);
+  const cards = list.length
+    ? list.map((d,i) => h('div',{c:'card'},
+        h('div',{c:'row'},
+          h('div',{},
+            h('b',{}, d.name),
+            h('div',{c:'m'}, `${(d.size/1024|0)} KB · ${new Date(d.at).toLocaleString()}`),
+            h('div',{style:'margin-top:6px'}, h('span',{c:'lvl '+d.level}, d.level))
+          ),
+          h('div',{c:'acts'},
+            h('select',{on:{change:e=>{d.level=e.target.value; save(); render()}}},
+              ...levels.map(l => h('option',{value:l, selected:l===d.level?true:null}, l))
+            ),
+            h('button',{c:'btn s',on:{click:()=>{
+              if(d.data){ const a=document.createElement('a'); a.href=d.data; a.download=d.name; a.click() }
+            }}},'Download'),
+            h('button',{c:'btn w s',on:{click:()=>sendWA(`Document: ${d.name}\nClassification: ${d.level}`)}},'WhatsApp'),
+            h('button',{c:'x',on:{click:()=>{D.docs.splice(i,1); save(); render()}}},'Delete')
+          )
+        )
+      ))
+    : [h('div',{c:'card empty'},'No files yet. Upload above.')];
+
+  return [
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Filing'),
+      h('h2',{},'Classified Documents'),
+      h('p',{c:'m'},'Upload any document. Stored locally with classification levels (Public → Secret).')
+    ),
+    h('div',{c:'card'}, drop),
+    ...cards
+  ];
+},
+
+protocol(){
+  const items = D.protocol;
+  const doneCount = items.filter(p=>p.done).length;
+
+  return [
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Protocol'),
+      h('h2',{},'VIP & Meeting Protocol Checklist'),
+      h('p',{c:'m'},`Progress: ${doneCount} of ${items.length} completed. Use this before any formal visit or high-level meeting.`)
+    ),
+    h('div',{c:'card'},
+      ...items.map((p,i) => h('div',{c:'check-item'+(p.done?' done':'')},
+        h('input',{type:'checkbox', checked:p.done?true:null, on:{change:()=>{p.done=!p.done; save(); render()}}}),
+        h('span',{style:'flex:1;font-size:14px'}, p.t),
+        h('button',{c:'x',on:{click:()=>{items.splice(i,1); save(); render()}}},'×')
+      )),
+      h('div',{style:'margin-top:14px'},
+        h('input',{type:'text',id:'newProto',placeholder:'Add new checklist item…',style:'margin-bottom:8px'}),
+        h('button',{c:'btn s',on:{click:()=>{
+          const el = document.getElementById('newProto');
+          if(!el.value.trim()) return;
+          items.push({id:uid(), t:el.value.trim(), done:false});
+          save(); render();
+        }}},'Add Item')
+      )
+    ),
+    h('div',{c:'card'},
+      h('h3',{},'Quick Protocol Notes'),
+      h('p',{c:'m',style:'white-space:pre-wrap'},`• Always confirm guest list 24–48h in advance.\n• Coordinate gate access with security.\n• Prepare one-page briefing for the Ambassador.\n• Name cards should follow formal titles.\n• Test online links 30 minutes before hybrid meetings.`)
+    )
+  ];
+},
+
+set(){
+  const w = h('input',{type:'tel',placeholder:'+1 202 555 0100',value:D.cfg.wa||''});
+  const m = h('input',{type:'email',placeholder:'ambassador@example.com',value:D.cfg.mail||''});
+  const p = h('input',{type:'password',placeholder:'New password (optional)'});
+  const rem = h('input',{type:'checkbox'});
+  rem.checked = !!D.cfg.rem;
+  const minsEl = h('select',{},
+    ...[15,30,60,120].map(v => h('option',{value:String(v), selected:v===(D.cfg.mins||60)?true:null}, v+' minutes'))
+  );
+
+  return [
+    h('div',{c:'card'},
+      h('div',{c:'eyebrow'},'Preferences'),
+      h('h2',{},'Settings'),
+      h('form',{},
+        h('label',{},'Your WhatsApp number (one-click send)', w),
+        h('label',{},'Your Email address (one-click send)', m),
+        h('p',{c:'m',style:'grid-column:1/-1;margin:0'},'Once saved, every WhatsApp / Email button across Aidy uses these details automatically. No need to re-type.'),
+        h('label',{c:'wide'},'Change password', p),
+        h('label',{c:'wide',style:'flex-direction:row;align-items:center;gap:8px'}, rem, ' Auto meeting reminders'),
+        h('label',{},'Remind every', minsEl),
+        h('button',{c:'btn wide',type:'button',on:{click:async()=>{
+          D.cfg.wa = w.value;
+          D.cfg.mail = m.value;
+          D.cfg.rem = rem.checked;
+          D.cfg.mins = +minsEl.value;
+          if(p.value.length >= 4) D.cfg.pw = await hash(p.value);
+          save(); toast('Settings saved — one-click send is ready');
+        }}},'Save Settings')
+      )
+    ),
+    h('div',{c:'card'},
+      h('h3',{},'How Aidy Covers the Executive Assistant Role'),
+      h('p',{c:'m',style:'white-space:pre-wrap'},`1. Calendar — multi-guest invites, online/offline, clash detection\n2. Analytics — weekly report and actionable insights\n3. Correspondence — formal templates and drafts\n4. Contacts — diplomatic & protocol directory\n5. Classified files — upload and classify (Public → Secret)\n6. Protocol checklist — VIP & meeting readiness\n7. Dual clocks — Cairo + Washington D.C.\n8. Embassy location — one-tap maps & details\n\nAll data remains private on this device.`)
+    ),
+    h('div',{c:'card'},
+      h('h3',{},'Embassy of Egypt · Washington D.C.'),
+      h('p',{style:'font-size:14px;margin:0 0 8px'}, EMBASSY.address),
+      h('div',{c:'acts'},
+        h('a',{href:EMBASSY.maps,target:'_blank',c:'btn s',style:'text-decoration:none'},'Google Maps'),
+        h('button',{c:'btn s b',on:{click:()=>cp(EMBASSY.address)}},'Copy address')
+      )
+    ),
+    h('div',{c:'card'},
+      h('h3',{},'About this Platform'),
+      h('p',{c:'m'},'Aidy is a purpose-built Executive Assistant Desk designed for the Office of the Ambassador, Embassy of the Arab Republic of Egypt in Washington D.C. It directly supports the core responsibilities of the role: calendar management, official correspondence, contact databases, classified filing, and protocol coordination.')
+    )
+  ];
+}
+};
+
+/* ═══════════════ RENDER ═══════════════ */
+
+const TABS = [
+  ['home','Home','home'],
+  ['meet','Calendar','cal'],
+  ['analytics','Analytics','chart'],
+  ['corr','Letters','mail'],
+  ['contacts','Contacts','users'],
+  ['protocol','Protocol','check'],
+  ['notes','Notes','note'],
+  ['files','Files','file'],
+  ['set','Settings','gear']
+];
+
+function render(){
+  if(!open){ lock(); return }
+  const r = $('#root');
+  const y = window.scrollY;
+  r.innerHTML = '';
+
+  r.append(
+    h('header',{},
+      h('div',{c:'logo-wrap'}, mk(MAS_SVG)),
+      h('h1',{},'Aidy'),
+      h('span',{c:'sub'},'Executive Assistant Desk · Embassy of Egypt · Washington D.C.'),
+      h('div',{c:'hdr-actions'},
+        h('button',{c:'tb',on:{click:()=>{
+          document.body.classList.toggle('dark');
+          toast(document.body.classList.contains('dark') ? 'Dark mode' : 'Light mode');
+        }}},'Theme')
+      )
+    ),
+    h('nav',{},
+      ...TABS.map(([k,l,i]) => h('button',{
+        c: k===tab ? 'on' : '',
+        on:{click:()=>{ tab=k; render(); scrollTo(0,0) }}
+      }, ico(I[i]), l))
+    )
+  );
+
+  const v = views[tab]();
+  r.append(...(Array.isArray(v) ? v : [v]));
+
+  r.append(h('div',{c:'foot'},
+    h('div',{},'Designed for the Embassy of the Arab Republic of Egypt · Washington D.C.'),
+    h('div',{},'Private · Local storage only · Dual clocks Cairo + Washington'),
+    h('div',{c:'designer'},'Designed & Implemented by Hesham Al Haddad'),
+    h('div',{c:'degrees'},'B.Sc. Information Systems (Very Good) · Postgraduate Diploma in Human Resources (Very Good)')
+  ));
+
+  scrollTo(0, y);
+}
+
+/* Mascot tips */
+(function(){
+  const m = $('#tally-mascot');
+  m.innerHTML = MAS_SVG;
+  const tips = [
+    'Manage the Ambassador’s calendar from the Calendar tab.',
+    'Upload confidential documents in Files and set the classification level.',
+    'Generate a polished weekly report from Analytics.',
+    'Use the Protocol checklist before any VIP visit.',
+    'Add multiple guests by email or WhatsApp when creating a meeting.',
+    'Dual clocks show Cairo and Washington time at a glance.',
+    'All data stays private on this device — nothing is uploaded.'
+  ];
+  let i = 0;
+  m.onclick = () => {
+    const b = $('#tally-bubble');
+    b.textContent = tips[i % tips.length];
+    i++;
+    b.classList.add('on');
+    setTimeout(() => b.classList.remove('on'), 4200);
+  };
+})();
+
+/* Boot */
+if(D.cfg.pw){ open = false; lock() }
+else render();
+</script>
+</body>
+</html>
